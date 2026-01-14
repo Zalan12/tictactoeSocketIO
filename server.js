@@ -7,7 +7,7 @@ const path = require('path');
 
 
 const ROOMS = [
-    
+    {id:"pali",label:"Halo"}
 ]
 
 const ERRORS = {
