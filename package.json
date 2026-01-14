@@ -1,0 +1,25 @@
+{
+  "name": "tictactoesocketio",
+  "version": "1.0.0",
+  "description": "A tictactoe application created via socketIO",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zalan12/tictactoeSocketIO.git"
+  },
+  "author": "FZ - RD",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zalan12/tictactoeSocketIO/issues"
+  },
+  "homepage": "https://github.com/Zalan12/tictactoeSocketIO#readme",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.2.1",
+    "path": "^0.12.7",
+    "socket.io": "^4.8.3"
+  }
+}
