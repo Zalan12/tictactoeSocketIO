@@ -1,13 +1,12 @@
 footer{
-    background-color:#436e68;
-    color:black;
+    background-color:#1d1d1d;
+    color: white;
     letter-spacing: 3px;
     height: 100px;
     display: flex;
     justify-content: space-around;
     box-shadow: 2px 3px 15px 5px black;
     align-items: center;
-    position: fixed;
     bottom: 0;
     width: 100%;
 }
@@ -15,7 +14,7 @@ header{
      display: flex;
     align-items: center;
     justify-content: center;
-    background-color:#723030;
+    background-color:#1d1d1d;
     
     box-shadow: 5px 5px 7px 5px black;
     height: 100px;
