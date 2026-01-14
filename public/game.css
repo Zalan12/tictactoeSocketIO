@@ -67,7 +67,7 @@ box-shadow: inset 2px 2px 10px 3px rgb(20, 20, 20);
 
 button:hover{
     border: 2px solid rgb(28, 173, 218);
-    box-shadow: 3px 5px 10px 3px #0e0c0c;
+    box-shadow: 0px 0px 10px 3px rgb(60, 187, 226);
     margin-bottom: 3%;
     transform: rotate(3deg);
     transition: 0.4s ease;
