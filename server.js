@@ -5,17 +5,43 @@ const io = require('socket.io')(server);
 const ejs = require('ejs');
 const path = require('path');
 
-app.set('view engine','ejs')
+const ROOMS = [
+    { id: 'frontend', label: 'Frontend programozás' },
+    { id: 'backend', label: 'Backend programozás' },
+    { id: 'desktop', label: 'Asztali alkalmazás fejlesztés' },
+    { id: 'mobile', label: 'Mobil alkalmazás fejlesztés' },
+    { id: 'database', label: 'Adatbázis kezelés' },
+    { id: 'others', label: 'Egyéb témák' },
+]
+
+const ERRORS = {
+    missingFileds: 'Hiányzó belépési adatok!'
+}
+
+const getRoomById = (roomId) => { return ROOMS.find((room) => room.id === roomId)};
+
+const connectedUsers = new Map(); // socket.id => { username, room }
+
+const emitRoomUsers = (room) => {
+    const usersInRoom = Array.from(connectedUsers.values())
+                        .filter((user) => user.room === room)
+                        .map((user) => user.nickname);
+
+    io.to(room).emit('room-users', {users: usersInRoom});
+}; 
+
+app.set('view engine', 'ejs');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-    res.render('index');
+    const {error = '', nickname = '', room = ''} = req.query;
+    res.render('index', { rooms: ROOMS, error: ERRORS[error], nickname, room });
 });
-
-app.get('/game',(req,res)=>{
+app.get('/game', (req,res) =>{
     res.render('game')
 })
+
 
 server.listen(3000, ()=>{
     console.log(`http://localhost:3000`);
