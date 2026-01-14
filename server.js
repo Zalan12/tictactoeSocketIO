@@ -5,13 +5,9 @@ const io = require('socket.io')(server);
 const ejs = require('ejs');
 const path = require('path');
 
+
 const ROOMS = [
-    { id: 'frontend', label: 'Frontend programozás' },
-    { id: 'backend', label: 'Backend programozás' },
-    { id: 'desktop', label: 'Asztali alkalmazás fejlesztés' },
-    { id: 'mobile', label: 'Mobil alkalmazás fejlesztés' },
-    { id: 'database', label: 'Adatbázis kezelés' },
-    { id: 'others', label: 'Egyéb témák' },
+    
 ]
 
 const ERRORS = {
@@ -39,8 +35,20 @@ app.get('/', (req, res) => {
     res.render('index', { rooms: ROOMS, error: ERRORS[error], nickname, room });
 });
 app.get('/game', (req,res) =>{
+        const { nickname, room} = req.query;
+    
+    if (!nickname || !room) {
+        return res.redirect(`/?error=missingFileds&nickname=${nickname}&room=${room}`);
+    }
+
+    const chatConfig = {
+        nickname,
+        roomId: room,
+        roomLabel: getRoomById(room).label,
+    } 
     res.render('game')
 })
+
 
 
 server.listen(3000, ()=>{
