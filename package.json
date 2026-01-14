@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Zalan12/tictactoeSocketIO#readme",
   "dependencies": {
+    "bootstrap": "^5.3.8",
     "ejs": "^3.1.10",
     "express": "^5.2.1",
     "nodemon": "^3.1.11",

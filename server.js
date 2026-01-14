@@ -10,9 +10,12 @@ app.set('view engine','ejs')
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-    
     res.render('index');
 });
+
+app.get('/game',(req,res)=>{
+    res.render('game')
+})
 
 server.listen(3000, ()=>{
     console.log(`http://localhost:3000`);
