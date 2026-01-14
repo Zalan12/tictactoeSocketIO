@@ -9,8 +9,8 @@ const path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-    const {error = '', nickname = '', room = ''} = req.query;
-    res.render('index', { rooms: ROOMS, error: ERRORS[error], nickname, room });
+    
+    res.render('index');
 });
 
 server.listen(3000, ()=>{
