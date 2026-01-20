@@ -7,8 +7,13 @@ footer{
     justify-content: space-around;
     box-shadow: 2px 3px 15px 5px black;
     align-items: center;
-    bottom: 0;
+    bottom:auto;
     width: 100%;
+    position: absolute;
+
+}
+footer p{
+   margin: auto 0;
 }
 header{
      display: flex;
