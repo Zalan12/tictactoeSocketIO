@@ -8,6 +8,12 @@
     justify-content: space-between;
     align-items: center;
 }
+body{
+    background-image: url("assets/imgs/dark-grunge-texture_1048-4055.avif");
+    background-repeat: no-repeat;
+    background-size: cover;
+    backdrop-filter: blur(1000px)
+}
 
 
 .MelyikJatekosDiv{
@@ -76,6 +82,7 @@ button{
     border:2px solid rgb(255, 0, 0);
     box-shadow: 3px 2px 8px 1px #1a1717;
     transform: rotate(0deg);
+    transform:scale(0.95);
     margin-bottom: 0%;
     transition: 1s ease
 }

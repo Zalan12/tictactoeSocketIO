@@ -1,9 +1,9 @@
 const socket = io();
 
-const jatekGombok = document.getElementsByClassName("JatekGombok")
+const JatekGombok = document.getElementsByClassName("JatekGombok");
 
-for(let i = 0; i < jatekGombok.length; i++){
-    jatekGombok[i].addEventListener('click',()=>{
-        alert(i)
-    })
+for(let i = 0; i < JatekGombok.length; i++){
+    JatekGombok[i].addEventListener('click',()=>{
+        alert(i);
+    });
 }
