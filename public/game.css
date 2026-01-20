@@ -15,6 +15,10 @@ body{
     backdrop-filter: blur(1000px)
 }
 
+.Lenyomott{
+    background-color: rgb(255, 0, 0);
+    border: 3px solid black;
+}
 
 .MelyikJatekosDiv{
     background-color: rgb(58, 57, 57);
