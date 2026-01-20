@@ -46,9 +46,16 @@ app.get('/game', (req,res) =>{
         roomId: room,
         roomLabel: getRoomById(room).label,
     } 
-    res.render('game')
+    res.render('game', {chatConfig})
 })
 
+
+io.on('connection',(socket)=>{
+    console.log("Új felhasználó csatlakozott: " + socket.id);
+    socket.on('gombKatt',({AdottGomb, player})=>{
+        socket.emit('GombAktival',{idx:AdottGomb,jatekos:player});
+    })
+})
 
 
 server.listen(3000, ()=>{
