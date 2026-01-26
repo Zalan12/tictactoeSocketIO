@@ -1,8 +1,10 @@
+const e = require("express");
+
 const socket = io();
 
 const JatekGombok = document.getElementsByClassName("JatekGombok");
-let currentPlayer = 0;
-let symbols=["X","0"];
+let currentPlayer = 1;
+let symbols=["","X","0"];
 const config=window.CHAT_CONFIG;
 
 let map = [[0,0,0],[0,0,0],[0,0,0]];
@@ -26,7 +28,7 @@ socket.on('GombAktival',({idx,player}) =>{
     JatekGombok[idx].classList.remove("hoverEffekt")
 
     let kep = document.createElement('img');
-    if(currentPlayer==0)
+    if(currentPlayer==1)
     {
         kep.src = "assets/imgs/kekKor2.png";
         currentPlayer++;
@@ -40,7 +42,27 @@ socket.on('GombAktival',({idx,player}) =>{
 
     let log=document.getElementById('szovegfal');
     log.innerText+=config.nickname+" megjelölte az " +idx+" indexű elemet "+ symbols[currentPlayer] +" szimbólummal\n";
+    if(idx<=2)
+        {
+            map[0][idx]=currentPlayer;
+        }
+
+    else if(idx>2 && idx<=5)
+        {
+            map[1][(idx-3)]=currentPlayer;
+        }
+    else if(idx>5 && idx<=8)
+        {
+            map[2][(idx-6)]=currentPlayer;
+        }
     console.log(map)
     JatekGombok[idx].appendChild(kep)
     JatekGombok[idx].disabled = "true"
+    if(map.forEach(row => {row.forEach(column=>{})}))
+
 })
+
+function endGame()
+{
+ alert("Old meg magad")
+}
