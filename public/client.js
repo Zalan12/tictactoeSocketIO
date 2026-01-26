@@ -1,68 +1,66 @@
-const e = require("express");
 
 const socket = io();
+const buttons = document.querySelectorAll('.JatekGombok');
+const room = document.body.dataset.room;
 
-const JatekGombok = document.getElementsByClassName("JatekGombok");
-let currentPlayer = 1;
-let symbols=["","X","0"];
-const config=window.CHAT_CONFIG;
+const turnText = document.getElementById('turnText');
+const logDiv = document.getElementById('szovegfal');
+const resetBtn = document.getElementById('resetBtn');
 
-let map = [[0,0,0],[0,0,0],[0,0,0]];
+let mySymbol = null;
 
-for(let i = 0; i < JatekGombok.length; i++){
-    JatekGombok[i].addEventListener('click',()=>{
-        socket.emit("gombKatt", {AdottGomb:i,player:currentPlayer})
-    });
+function logMove(text) {
+    const p = document.createElement('p');
+    p.innerText = text;
+    logDiv.appendChild(p);
 }
 
+socket.emit('joinRoom', { room });
 
-socket.emit('join-room',{nickname:config.nickname,room:config.roomId})
+buttons.forEach((btn, index) => {
+    btn.addEventListener('click', () => {
+        if (!mySymbol) return;
+        socket.emit('makeMove', index);
+        logMove(`(${mySymbol}) lépett ide: ${index + 1}`);
+    });
+});
 
+socket.on('playerSymbol', symbol => {
+    mySymbol = symbol;
+    turnText.innerText = `Te vagy: ${symbol}`;
+});
 
-socket.on('GombAktival',({idx,player}) =>{
-    console.log("INDEX: " + idx)
-    console.log("JÁTÉKOS: " + config.nickname)
+socket.on('spectator', () => {
+    turnText.innerText = 'Megfigyelő mód';
+});
 
+socket.on('boardUpdate', ({ board, currentTurn }) => {
+    board.forEach((val, i) => {
+        buttons[i].innerText = val || '';
+        buttons[i].disabled = !!val;
+    });
 
-    JatekGombok[idx].classList.add("Tiltott")
-    JatekGombok[idx].classList.remove("hoverEffekt")
+    if (!mySymbol) return;
 
-    let kep = document.createElement('img');
-    if(currentPlayer==1)
-    {
-        kep.src = "assets/imgs/kekKor2.png";
-        currentPlayer++;
+    if (currentTurn === mySymbol) {
+        turnText.innerText = 'Te következel';
+    } else {
+        turnText.innerText = 'Ellenfél következik';
     }
-    else{
-        kep.src = "assets/imgs/pirosX2.png";
-        currentPlayer--;
+});
+
+socket.on('gameOver', winner => {
+    if (winner === 'draw') {
+        turnText.innerText = '⚖️ Döntetlen!';
+        logMove('⚖️ Döntetlen');
+    } else {
+        turnText.innerText = `🏆 Győztes: ${winner}`;
+        logMove(`🏆 Győztes: ${winner}`);
     }
-    kep.style.width = "80%";
-    kep.style.height = "80%";
+});
 
-    let log=document.getElementById('szovegfal');
-    log.innerText+=config.nickname+" megjelölte az " +idx+" indexű elemet "+ symbols[currentPlayer] +" szimbólummal\n";
-    if(idx<=2)
-        {
-            map[0][idx]=currentPlayer;
-        }
-
-    else if(idx>2 && idx<=5)
-        {
-            map[1][(idx-3)]=currentPlayer;
-        }
-    else if(idx>5 && idx<=8)
-        {
-            map[2][(idx-6)]=currentPlayer;
-        }
-    console.log(map)
-    JatekGombok[idx].appendChild(kep)
-    JatekGombok[idx].disabled = "true"
-    if(map.forEach(row => {row.forEach(column=>{})}))
-
-})
-
-function endGame()
-{
- alert("Old meg magad")
+if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+        location.reload();
+    });
 }
