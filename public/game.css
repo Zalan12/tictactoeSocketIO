@@ -20,6 +20,7 @@ body{
     border: 30px solid black;
     width: 100%;
     height: 100%;
+    filter: grayscale(100%);
 }
 
 .MelyikJatekosDiv{
@@ -99,7 +100,7 @@ button{
     80%{transform:rotate(0deg);}
 }
 
-.Szovegfal{
+#szovegfal{
     background-color: rgb(58, 57, 57);
     width: 45%;
     height: 100%;
