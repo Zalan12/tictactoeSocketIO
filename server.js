@@ -12,6 +12,7 @@ const chatConfig = { enabled: false };
 
 const ROOM = 'room';
 let players = [];
+
 let board = Array(9).fill(null);
 let turn = 'X';
 
@@ -31,13 +32,14 @@ app.get('/game', (req, res) => {
 
 io.on('connection', socket => {
 
-    socket.on('joinRoom', ({ room }) => {
+    socket.on('joinRoom', ({ room, chatConfig }) => {
         socket.join(room);
 
         if (players.length < 2) {
             const symbol = players.length === 0 ? 'X' : 'O';
             players.push({ id: socket.id, symbol });
             socket.emit('playerSymbol', symbol);
+
         } else {
             socket.emit('spectator');
         }
@@ -53,6 +55,7 @@ io.on('connection', socket => {
 
         board[index] = player.symbol;
         turn = turn === 'X' ? 'O' : 'X';
+        
 
         io.emit('boardUpdate', { board, currentTurn: turn });
 

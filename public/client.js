@@ -9,6 +9,8 @@ const resetBtn = document.getElementById('resetBtn');
 
 let mySymbol = null;
 
+let playerNames=[];
+
 function logMove(text) {
     const p = document.createElement('p');
     p.innerText = text;
@@ -51,11 +53,11 @@ socket.on('boardUpdate', ({ board, currentTurn }) => {
 
 socket.on('gameOver', winner => {
     if (winner === 'draw') {
-        turnText.innerText = '⚖️ Döntetlen!';
-        logMove('⚖️ Döntetlen');
+        turnText.innerText = 'Döntetlen!';
+        logMove('Döntetlen');
     } else {
-        turnText.innerText = `🏆 Győztes: ${winner}`;
-        logMove(`🏆 Győztes: ${winner}`);
+        turnText.innerText = `Győztes: ${winner}`;
+        logMove(`Győztes: ${winner}`);
     }
 });
 
